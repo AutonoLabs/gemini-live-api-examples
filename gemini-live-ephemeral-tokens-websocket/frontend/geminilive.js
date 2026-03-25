@@ -346,6 +346,7 @@ class GeminiLiveAPI {
         },
         systemInstruction: { parts: [{ text: this.systemInstructions }] },
         tools: [{ functionDeclarations: tools }],
+        turnCoverage: "TURN_INCLUDES_ONLY_ACTIVITY",
         // proactivity: this.proactivity,
 
         // realtimeInputConfig: {

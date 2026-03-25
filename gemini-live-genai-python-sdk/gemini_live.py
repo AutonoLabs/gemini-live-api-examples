@@ -42,8 +42,8 @@ class GeminiLive:
             system_instruction=types.Content(parts=[types.Part(text="You are a helpful AI assistant. Keep your responses concise. Speak in a friendly Irish accent. You can see the user's camera or screen which is shared as realtime input images with you.")]),
             input_audio_transcription=types.AudioTranscriptionConfig(),
             output_audio_transcription=types.AudioTranscriptionConfig(),
-            #proactivity=types.ProactivityConfig(proactive_audio=True),
-            #enable_affective_dialog=True,
+            turn_coverage="TURN_INCLUDES_ONLY_ACTIVITY",
+
             tools=self.tools,
         )
         

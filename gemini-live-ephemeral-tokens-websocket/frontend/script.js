@@ -22,10 +22,8 @@ function initDOM() {
     "enableInputTranscription",
     "enableOutputTranscription",
     "enableGrounding",
-    "enableAffectiveDialog",
     "enableAlertTool",
     "enableCssStyleTool",
-    "enableProactiveAudio",
     "voiceSelect",
     "temperature",
     "temperatureValue",
@@ -136,15 +134,9 @@ async function connect() {
     state.client.outputAudioTranscription =
       elements.enableOutputTranscription.checked;
     state.client.googleGrounding = elements.enableGrounding.checked;
-    state.client.enableAffectiveDialog = elements.enableAffectiveDialog.checked;
     state.client.responseModalities = ["AUDIO"];
     state.client.voiceName = elements.voiceSelect.value;
     state.client.temperature = parseFloat(elements.temperature.value);
-
-    // Set proactivity configuration
-    state.client.proactivity = {
-      proactiveAudio: elements.enableProactiveAudio.checked,
-    };
 
     // Set automatic activity detection configuration
     state.client.automaticActivityDetection = {
