@@ -1,0 +1,34 @@
+{
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "disallowLegacyRuntimeConfig": true,
+      "ignore": [
+        "venv",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "runtime": "python313",
+      "secrets": [
+        "GEMINI_API_KEY"
+      ]
+    }
+  ],
+  "hosting": {
+    "public": "frontend",
+    "rewrites": [
+      {
+        "source": "/api/token",
+        "function": "get_ephemeral_token"
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

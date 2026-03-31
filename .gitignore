@@ -2,3 +2,5 @@ node_modules
 __pycache__
 .venv
 .env
+gemini-live-ephemeral-tokens-websocket/skills-lock.json
+gemini-live-ephemeral-tokens-websocket/.firebaserc
