@@ -29,6 +29,8 @@ if not GEMINI_API_KEY:
 else:
     client = genai.Client(api_key=GEMINI_API_KEY, http_options={"api_version": "v1alpha"})
 
+TOKEN_TIMEOUT_SECONDS = 15  # Max time to wait for Google to issue a token
+
 
 async def get_ephemeral_token(request):
     """Generates an ephemeral token for the Gemini Live API."""
@@ -43,15 +45,18 @@ async def get_ephemeral_token(request):
 
         now = datetime.datetime.now(tz=datetime.timezone.utc)
         expire_time = now + datetime.timedelta(minutes=30)
-        
-        # Create an ephemeral token
-        token = client.auth_tokens.create(
-            config={
-                "uses": 1,
-                "expire_time": expire_time.isoformat(),
-                "new_session_expire_time": (now + datetime.timedelta(minutes=1)).isoformat(),
-                "http_options": {"api_version": "v1alpha"},
-            }
+
+        # Create an ephemeral token using async client with timeout
+        token = await asyncio.wait_for(
+            client.aio.auth_tokens.create(
+                config={
+                    "uses": 1,
+                    "expire_time": expire_time.isoformat(),
+                    "new_session_expire_time": (now + datetime.timedelta(minutes=1)).isoformat(),
+                    "http_options": {"api_version": "v1alpha"},
+                }
+            ),
+            timeout=TOKEN_TIMEOUT_SECONDS,
         )
 
         return web.json_response({
